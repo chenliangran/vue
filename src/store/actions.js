@@ -1,0 +1,58 @@
+import  * as types from './types';
+export default {
+    sendAudio({commit,state},obj){
+        commit(types.SENDAUDIO,obj)
+    },
+    sendMusic({commit,state},obj){
+        commit(types.SENDMUSIC,obj)
+    },
+    loopPlayback({commit,state}){
+        commit(types.LOOPPLAYBACK)
+    },
+    play({commit,state}){
+        if(state.musicList.length!=0){
+        if (state.playState==false){
+            state.dom.play();
+            commit(types.PLAY)
+        }else {
+            state.dom.pause();
+            commit(types.PAUSE)
+            }
+        }
+    },
+    nextMusic({commit,state}){
+        state.musicList.length!=0?commit(types.LOOPPLAYBACK):false;
+    },
+    prevMusic({commit,state}){
+        state.musicList.length!=0?commit(types.PREVSONG):false;
+    },
+    getcurrentTime({state}){
+        state.currentTime=state.dom.currentTime
+    },
+    getDuration({state}){
+        state.duration=state.dom.duration;
+    },
+    closeListState({commit,state}){
+        commit(types.CLOSELISTSTATE)
+    },
+    openListState({commit,state}){
+        commit(types.OPENLISTSTATE)
+    },
+    selectMusic({commit,state},index){
+        commit(types.SELECTMUSIC,index)
+    },
+    delMusic({commit,state},index){
+        commit(types.DELMUSIC,index)
+    },
+  	showPlayInfo({commit}){
+        commit(types.SHOWPLAYINFO)
+    },
+    hidPlayInfo({commit}){
+        commit(types.HIDPLAYINFO)
+    },
+    setCurrentTime({commit,state},time){
+        if(state.musicPlace!=-1){
+            commit(types.SETCURRENTTIME,time)
+        }
+    }
+}
